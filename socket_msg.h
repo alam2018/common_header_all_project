@@ -371,25 +371,26 @@ typedef struct extMsg
 
 //Database of connection information for all the connected entities
 typedef struct pdcpBuffer {
-	bool 			isBufferUsed;
+	bool 			isBufferUsed;		//"TRUE" when the buffer has un processed data
+	struct timespec bufferRecTime;		//Time stamp when the buffer is fetched from linux kernel
 	UINT32 			msgSize;			//Size of pData
 	uint8_t 		*pData;				//contains the original buffer
 }_tpdcpBuffer;
 
 typedef struct schedSockbufferHdr {
-	int     		upId;				//Module id for PDCP. Could be replace as VNF/Docker ID
-	int 			sockFD;				//The socket FD allocated for each bearer
-	int				dbIndex;			//Index of Bearer database. This index is used to find user information in the PDCP database
-	int 			sizeUsd;			//Not used
-	unsigned int 	IPaddr;				//Not used
+	int     		upId;							//Module id for PDCP. Could be replace as VNF/Docker ID
+	int 			sockFD;							//The socket FD allocated for each bearer
+	int				dbIndex;						//Index of Bearer database. This index is used to find user information in the PDCP database
+	int 			sizeUsd;						//Not used
+	unsigned int 	IPaddr;							//Not used
 	_tpdcpBuffer	sockBufferDatabase[MAX_BUFFER_REC_WINDOW];		//Pkt buffer for each bearer
-	char 			entity[10];			//Name of the entity
-	UINT32			msgID;				//This variable is used to indicate if the bearer is downlonk or uplink
-	int qci;							//QCI index value for each bearer. Look 5QI table.
-	int prio;							//Priority of each bearer got from 5QI table
-	struct timespec bufferRecTime;		//Time stamp when the buffer is fetched from linux kernel
-	long int total_bytes_rec;			//Total number of bytes rec in the processing monitoring window e.g.10TTI or 100TTI
-	long int total_bytes_unprocessed;	//Actual number of unprocessed bytes remaining in the buffer
+	char 			entity[10];						//Name of the entity
+	UINT32			msgID;							//This variable is used to indicate if the bearer is downlonk or uplink
+	int 			qci;							//QCI index value for each bearer. Look 5QI table.
+	int 			prio;							//Priority of each bearer got from 5QI table
+	long int 		total_bytes_rec;				//Total number of bytes rec in the processing monitoring window e.g.10TTI or 100TTI
+	long int 		total_bytes_unprocessed;		//Actual number of unprocessed bytes remaining in the buffer
+	bool 			defense_approve;				//This variable is set "TRUE" by default. If this bearer processing is approved by defense the variable still set to "TRUE" otherwise "FALSE"
 }_tSchedBuffer;
 
 
