@@ -17,7 +17,7 @@
 
 
 #define ROHC_COMPRESSION
-//#undef ROHC_COMPRESSION
+#undef ROHC_COMPRESSION
 #define IP_HEADER_SIZE 20
 #define UDP_HEADER_SIZE 8
 #define RTP_HEADER_SIZE 12
@@ -32,7 +32,7 @@
 #define NUM_TO_MSGDX(n) (n << 16)
 
 #define MAX_BUFFER_REC_WINDOW			1
-#define MAX_NO_CONN_TO_PDCP 			5
+#define MAX_NO_CONN_TO_PDCP 			1
 #define BUFFER_SIZE 					10000
 #define ROHC_BUFFER_SIZE				500
 #define SDU_BUFFER_SIZE					2500
@@ -171,7 +171,8 @@ typedef struct
 //	 mem_block_alam pdcp_pdu;						//when RLC is not available and PDCP is in testing mode
 	 uint16_t           pdcp_pdu_size;
 	 boolean_t pdcp_result;
-	 int qci;
+	 int qci;										//QCI value if the bearer
+	 int sliceID;									//Slice ID to which the user belong to
 } __attribute__((packed)) PDCP_DATA_REQ_FUNC_T;
 
 
@@ -387,10 +388,11 @@ typedef struct schedSockbufferHdr {
 	char 			entity[10];						//Name of the entity
 	UINT32			msgID;							//This variable is used to indicate if the bearer is downlonk or uplink
 	int 			qci;							//QCI index value for each bearer. Look 5QI table.
-	int 			prio;							//Priority of each bearer got from 5QI table
+	double 			prio;							//Priority allocated by PDCP defense
 	long int 		total_bytes_rec;				//Total number of bytes rec in the processing monitoring window e.g.10TTI or 100TTI
 	long int 		total_bytes_unprocessed;		//Actual number of unprocessed bytes remaining in the buffer
 	bool 			defense_approve;				//This variable is set "TRUE" by default. If this bearer processing is approved by defense the variable still set to "TRUE" otherwise "FALSE"
+	bool			isThisInstanceActive;			//Indicated if the PDCP has stored any data on this index
 }_tSchedBuffer;
 
 
