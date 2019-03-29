@@ -32,7 +32,7 @@
 #define NUM_TO_MSGDX(n) (n << 16)
 
 #define MAX_BUFFER_REC_WINDOW			1
-#define MAX_NO_CONN_TO_PDCP 			1
+#define MAX_NO_CONN_TO_PDCP 			100
 #define BUFFER_SIZE 					10000
 #define ROHC_BUFFER_SIZE				500
 #define SDU_BUFFER_SIZE					2500
@@ -372,6 +372,7 @@ typedef struct extMsg
 
 //Database of connection information for all the connected entities
 typedef struct pdcpBuffer {
+	bool			beginUsage;		//If true, then this buffer is in ready condition and memory has been allocated
 	bool 			isBufferUsed;		//"TRUE" when the buffer has un processed data
 	struct timespec bufferRecTime;		//Time stamp when the buffer is fetched from linux kernel
 	UINT32 			msgSize;			//Size of pData
@@ -394,7 +395,6 @@ typedef struct schedSockbufferHdr {
 	bool 			defense_approve;				//This variable is set "TRUE" by default. If this bearer processing is approved by defense the variable still set to "TRUE" otherwise "FALSE"
 	bool			isThisInstanceActive;			//Indicated if the PDCP has stored any data on this index
 }_tSchedBuffer;
-
 
 
 //******************************************************************************
