@@ -394,6 +394,7 @@ typedef struct schedSockbufferHdr {
 	long int 		total_bytes_unprocessed;		//Actual number of unprocessed bytes remaining in the buffer
 	bool 			defense_approve;				//This variable is set "TRUE" by default. If this bearer processing is approved by defense the variable still set to "TRUE" otherwise "FALSE"
 	bool			isThisInstanceActive;			//Indicated if the PDCP has stored any data on this index
+	bool			isDownlink;						//If this value is true then the bearer is dowlink, otherwise uplink
 }_tSchedBuffer;
 
 
