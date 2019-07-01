@@ -31,7 +31,7 @@
 //#define PAYLOAD_SIZE    1400
 #define NUM_TO_MSGDX(n) (n << 16)
 
-#define MAX_BUFFER_REC_WINDOW			1
+#define MAX_BUFFER_REC_WINDOW			5
 #define MAX_NO_CONN_TO_PDCP 			100
 #define BUFFER_SIZE 					10000
 #define ROHC_BUFFER_SIZE				500
@@ -372,7 +372,7 @@ typedef struct extMsg
 
 //Database of connection information for all the connected entities
 typedef struct pdcpBuffer {
-	bool			beginUsage;		//If true, then this buffer is in ready condition and memory has been allocated
+//	bool			beginUsage;		//If true, then this buffer is in ready condition and memory has been allocated
 	bool 			isBufferUsed;		//"TRUE" when the buffer has un processed data
 	struct timespec bufferRecTime;		//Time stamp when the buffer is fetched from linux kernel
 	UINT32 			msgSize;			//Size of pData
@@ -415,10 +415,10 @@ typedef struct
 	int 		module_id;     							/*!< \brief  Virtualized module identifier      */
 	int  		resource_req;      						/*!< \brief  Amount of CPU resource request from an module */
 	int			resource_rsp;							/*!< \brief  Amount of allocated CPU resource from the cloud manager */
-	int			down_BW_req;							/*!< \brief  Downlink Bandwidth request */
-	int			down_BW_rsp;							/*!< \brief  Downlink Bandwidth allocation from CM */
-	int			up_BW_req;								/*!< \brief  Uplink Bandwidth request */
-	int			up_BW_rsp;								/*!< \brief  Uplink Bandwidth allocation from CM */
+	double		down_BW_req;							/*!< \brief  Downlink Bandwidth request */
+	double		down_BW_rsp;							/*!< \brief  Downlink Bandwidth allocation from CM */
+	double		up_BW_req;								/*!< \brief  Uplink Bandwidth request */
+	double		up_BW_rsp;								/*!< \brief  Uplink Bandwidth allocation from CM */
 	int			res_querry_enable;						/*!< \brief  Cloud manager asks to module about current resource usage report. Set 1, when module is asking
 														for cpu, 2 when manager is asking modules about there current usage, 3 when modules are replying about managers query  */
 } __attribute__((packed)) CLOUD_MANAGER_RESOURCE_HANDLE_T;
