@@ -32,7 +32,7 @@
 #define NUM_TO_MSGDX(n) (n << 16)
 
 #define MAX_BUFFER_REC_WINDOW			5
-#define MAX_NO_CONN_TO_PDCP 			100
+#define MAX_NO_CONN_TO_PDCP 			141
 #define BUFFER_SIZE 					10000
 #define ROHC_BUFFER_SIZE				500
 #define SDU_BUFFER_SIZE					2500
@@ -414,7 +414,7 @@ typedef struct
 {
 	int 		module_id;     							/*!< \brief  Virtualized module identifier      */
 	int  		resource_req;      						/*!< \brief  Amount of CPU resource request from an module */
-	int			resource_rsp;							/*!< \brief  Amount of allocated CPU resource from the cloud manager */
+	double		resource_rsp;							/*!< \brief  Amount of allocated CPU resource from the cloud manager */
 	double		down_BW_req;							/*!< \brief  Downlink Bandwidth request */
 	double		down_BW_rsp;							/*!< \brief  Downlink Bandwidth allocation from CM */
 	double		up_BW_req;								/*!< \brief  Uplink Bandwidth request */
